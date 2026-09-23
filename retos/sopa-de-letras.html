@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sopa de letras · Tertulia Digital</title>
+  <meta name="description" content="Sopa de letras con 10 niveles y temas mexicanos: mercado, plantas medicinales, música, escritores y más.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- OJO: esta página está DENTRO de la carpeta "retos".
+       "../" significa "sube una carpeta". Así llegamos a css/estilos.css -->
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+  <header>
+    <p class="nombre-sitio">Tertulia Digital</p>
+    <p>Mente activa, vida plena.</p>
+    <nav aria-label="Menú principal">
+      <ul class="menu">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="index.html" aria-current="page">Retos</a></li>
+        <li><a href="../bienestar/">Bienestar</a></li>
+        <li><a href="../cuidadores.html">Cuidadores</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver a Retos</a>
+
+    <!-- En esta página el título principal (h1) es el nombre del juego -->
+    <h1>Sopa de letras</h1>
+    <p class="introduccion">
+      Busque las palabras escondidas. Toque la <strong>primera letra</strong> de una palabra
+      y después la <strong>última</strong>, o arrastre el dedo de una a otra.
+      Hay 10 niveles; cada uno es un poco más retador que el anterior.
+    </p>
+
+    <!-- Los botones de los niveles los crea el JavaScript aquí adentro -->
+    <section aria-labelledby="titulo-niveles">
+      <h2 id="titulo-niveles" class="titulo-pequeno">Elija un nivel</h2>
+      <div id="niveles" class="niveles"></div>
+    </section>
+
+    <div class="sopa">
+
+      <!-- Columna 1: el tablero -->
+      <section>
+        <h2 id="titulo-nivel">Nivel 1</h2>
+        <p id="ayuda-nivel" class="ayuda-nivel"></p>
+
+        <!-- El JavaScript llena este div con las letras -->
+        <div id="tablero" class="tablero" aria-label="Tablero de la sopa de letras"></div>
+
+        <!-- aria-live="polite": los lectores de pantalla leen en voz alta los mensajes nuevos -->
+        <p id="mensaje" class="mensaje" aria-live="polite"></p>
+
+        <!-- hidden = escondido. El JavaScript lo muestra al terminar el nivel. -->
+        <div id="felicitacion" class="felicitacion" hidden>
+          <h3>¡Excelente trabajo!</h3>
+          <p id="texto-felicitacion"></p>
+          <button id="btn-siguiente" class="boton" type="button">Siguiente nivel →</button>
+        </div>
+
+        <div class="acciones">
+          <button id="btn-pista" class="boton-secundario" type="button">Dar una pista</button>
+          <button id="btn-nuevo" class="boton-secundario" type="button">Nuevo tablero</button>
+        </div>
+      </section>
+
+      <!-- Columna 2: las palabras. <aside> = contenido complementario, "al lado". -->
+      <aside class="panel-palabras">
+        <h2 class="titulo-pequeno">Palabras por encontrar</h2>
+        <p id="contador" class="contador"></p>
+        <ul id="lista-palabras" class="lista-palabras"></ul>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer>
+    <nav aria-label="Menú del pie de página">
+      <ul class="menu-pie">
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="index.html">Retos</a></li>
+        <li><a href="../bienestar/">Bienestar</a></li>
+        <li><a href="../cuidadores.html">Cuidadores</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2026 Tertulia Digital. La información de salud es orientativa; consulte siempre a su médico.</p>
+  </footer>
+
+  <!-- El JavaScript va AL FINAL del body: así, cuando se ejecuta, el HTML ya existe -->
+  <script src="../js/sopa.js"></script>
+</body>
+</html>

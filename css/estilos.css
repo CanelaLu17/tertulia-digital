@@ -269,3 +269,295 @@ footer {
     padding: 1rem;                    /* un poco menos de margen para aprovechar la pantalla */
   }
 }
+
+
+/* ================================================================
+   PÁGINAS INTERIORES (Retos, Bienestar…)
+   ================================================================ */
+
+/* En las páginas interiores el nombre del sitio va en un <p>, porque el <h1>
+   es el título de ESA página (solo debe haber un h1 por página). */
+.nombre-sitio {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+main h1 {
+  margin: 0.5rem 0 1rem;
+}
+
+/* Enlace "← Volver a…" */
+.volver {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  color: var(--color-principal);
+  font-weight: 700;
+}
+
+.titulo-tarjeta {
+  font-size: 1.5rem;
+  margin: 0 0 0.75rem;
+}
+
+/* Tarjetas de juegos que aún no existen: más apagadas */
+.proximamente {
+  background-color: transparent;
+  border-style: dashed;
+}
+
+.etiqueta {
+  align-self: flex-start;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-texto-suave);
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+  padding: 0.25rem 0.9rem;
+}
+
+
+/* ================================================================
+   BOTONES REUTILIZABLES
+   ================================================================
+   .boton = botón principal (terracota).  .boton-secundario = con borde.
+   Se usan en cualquier página agregando class="boton".
+*/
+.boton,
+.boton-secundario {
+  font-family: inherit;               /* los botones no heredan la letra solos; se la pedimos */
+  font-size: 1.1rem;
+  font-weight: 700;
+  min-height: 48px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  cursor: pointer;                    /* manita al pasar el mouse */
+}
+
+.boton {
+  background-color: var(--color-acento);
+  color: #FFFFFF;
+  border: 2px solid var(--color-acento);
+}
+
+.boton:hover {
+  background-color: #8A3D20;
+}
+
+.boton-secundario {
+  background-color: var(--color-superficie);
+  color: var(--color-principal);
+  border: 2px solid var(--color-principal);
+}
+
+.boton-secundario:hover {
+  background-color: #E8F0EB;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 3px;
+}
+
+
+/* ================================================================
+   SOPA DE LETRAS
+   ================================================================ */
+
+.introduccion {
+  max-width: 45rem;
+}
+
+.titulo-pequeno {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+/* Botones de niveles 1 al 10 */
+.niveles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.niveles button {
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  min-width: 56px;
+  min-height: 48px;
+  padding: 0 0.75rem;
+  border-radius: 12px;
+  border: 2px solid var(--color-borde);
+  background-color: var(--color-superficie);
+  color: var(--color-texto);
+  cursor: pointer;
+}
+
+.niveles button.completado {
+  border-color: var(--color-principal);
+  color: var(--color-principal);
+}
+
+/* El nivel que se está jugando */
+.niveles button[aria-pressed="true"] {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: #FFFFFF;
+}
+
+/* Dos columnas en pantallas anchas (tablero | palabras); una sola en celular */
+.sopa {
+  display: grid;
+  gap: 1rem 2.5rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .sopa {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+  }
+}
+
+.ayuda-nivel {
+  color: var(--color-texto-suave);
+  margin-top: 0;
+}
+
+/* El tablero: una cuadrícula con tantas columnas como diga el JavaScript (--columnas) */
+.tablero {
+  --columnas: 8;                      /* valor por defecto; el JS lo cambia */
+  display: grid;
+  grid-template-columns: repeat(var(--columnas), 1fr);
+  gap: 2px;
+  width: 100%;
+  /* min() elige el MÁS CHICO de los dos: 38rem, o el 70 % del alto de la pantalla.
+     Así el tablero completo cabe sin tener que bajar la página. */
+  max-width: min(38rem, 70vh);
+  padding: 0.4rem;
+  box-sizing: border-box;             /* el padding cuenta DENTRO del ancho, no se suma */
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+
+  container-type: inline-size;        /* deja que las letras midan su tamaño respecto al tablero */
+  touch-action: none;                 /* en celular, arrastrar el dedo NO mueve la página */
+  user-select: none;                  /* evita que se "sombree" el texto al arrastrar */
+  -webkit-user-select: none;          /* lo mismo, para Safari (iPhone/iPad) */
+}
+
+.letra {
+  aspect-ratio: 1;                    /* casillas cuadradas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;                                /* por si el navegador es antiguo */
+  font-size: calc(100cqi / var(--columnas) * 0.58); /* la letra mide un poco más de la mitad de la casilla */
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.letra:hover {
+  background-color: #F1ECE2;
+}
+
+/* Letras que se están eligiendo */
+.letra.seleccion {
+  background-color: var(--color-acento);
+  color: #FFFFFF;
+}
+
+/* Palabras encontradas: 4 tonos suaves que se van turnando */
+.letra.encontrada[data-tono="0"] { background-color: #D6E6DC; }  /* salvia */
+.letra.encontrada[data-tono="1"] { background-color: #F4D9CB; }  /* terracota claro */
+.letra.encontrada[data-tono="2"] { background-color: #F1E4BF; }  /* trigo */
+.letra.encontrada[data-tono="3"] { background-color: #D5E3EC; }  /* azul cielo */
+
+/* La letra que marca la pista */
+.letra.pista {
+  outline: 4px solid var(--color-acento);
+  outline-offset: -2px;
+  animation: latido 1s ease-in-out 3; /* "late" 3 veces */
+}
+
+@keyframes latido {
+  50% { transform: scale(1.15); }
+}
+
+/* Si la persona pidió a su sistema "reducir movimiento", no animamos */
+@media (prefers-reduced-motion: reduce) {
+  .letra.pista { animation: none; }
+}
+
+.mensaje {
+  min-height: 1.6em;                  /* reserva espacio para que la página no "brinque" */
+  font-weight: 700;
+  color: var(--color-principal);
+}
+
+.felicitacion {
+  background-color: #E8F0EB;
+  border: 2px solid var(--color-principal);
+  border-radius: var(--radio);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.felicitacion h3 {
+  margin-bottom: 0.5rem;
+}
+
+.felicitacion p {
+  margin-top: 0;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Panel de palabras */
+.panel-palabras .titulo-pequeno {
+  margin-top: 0;
+}
+
+.contador {
+  color: var(--color-texto-suave);
+  margin: 0 0 0.75rem;
+}
+
+.lista-palabras {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lista-palabras li {
+  font-weight: 700;
+  letter-spacing: 0.05em;             /* un poquito de aire entre letras */
+  padding: 0.3rem 0.9rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+  background-color: var(--color-superficie);
+}
+
+.lista-palabras li.hallada {
+  text-decoration: line-through;
+  color: var(--color-texto-suave);
+  background-color: #D6E6DC;
+}
+
+@media (min-width: 900px) {
+  /* En computadora, las palabras en columna, una debajo de otra */
+  .lista-palabras {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
