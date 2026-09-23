@@ -1,0 +1,4 @@
+# Este archivo le dice a git qué cosas NO debe guardar.
+
+# Archivo invisible que la Mac crea sola en cada carpeta (no sirve para la página)
+.DS_Store

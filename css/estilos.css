@@ -1,0 +1,271 @@
+/*
+  ================================================================
+  ESTILOS DE TERTULIA DIGITAL
+  ================================================================
+  Este archivo es CSS: le dice al navegador CÓMO SE VE cada cosa del HTML.
+
+  Cada "regla" tiene esta forma:
+
+      selector {
+        propiedad: valor;
+      }
+
+  - El SELECTOR dice a qué elementos se aplica (por ejemplo: h1, p, a).
+  - Adentro van PROPIEDADES con su VALOR (por ejemplo: color: verde;).
+  - Cada línea termina con punto y coma ;
+
+  Los comentarios en CSS empiezan con barra-asterisco y terminan con
+  asterisco-barra (como este bloque). El navegador los ignora.
+*/
+
+
+/* ----------------------------------------------------------------
+   1. VARIABLES: nuestra paleta y medidas en un solo lugar
+   ----------------------------------------------------------------
+   :root significa "toda la página". Las variables empiezan con --
+   Ventaja: si mañana queremos otro verde, lo cambiamos AQUÍ
+   y se actualiza en todo el sitio.
+*/
+:root {
+  /* Colores (paleta "Salvia y terracota") */
+  --color-fondo: #FAF6EF;         /* crema: fondo general */
+  --color-superficie: #FFFFFF;    /* blanco: fondo de las tarjetas */
+  --color-texto: #2B2A28;         /* casi negro: más suave a la vista que el negro puro */
+  --color-texto-suave: #55524D;   /* gris cálido para textos secundarios */
+  --color-principal: #3F6B55;     /* verde salvia oscuro */
+  --color-acento: #A64B28;        /* terracota (elegido con suficiente contraste para leerse bien) */
+  --color-borde: #E4DDD0;         /* beige para líneas y bordes */
+
+  /* Tipografía */
+  --letra: "Atkinson Hyperlegible", Arial, sans-serif;
+  /* Si la letra de Google no carga, usa Arial; si tampoco, cualquier letra sin serifa. */
+
+  /* Medidas */
+  --radio: 14px;                  /* qué tan redondeadas son las esquinas */
+}
+
+
+/* ----------------------------------------------------------------
+   2. ESTILO BASE DE LA PÁGINA
+   ---------------------------------------------------------------- */
+body {
+  margin: 0;                          /* quita el espacio que el navegador pone por defecto */
+  background-color: var(--color-fondo);   /* var(...) = "usa esta variable" */
+  color: var(--color-texto);
+  font-family: var(--letra);
+  font-size: 1.25rem;                 /* 1.25rem ≈ 20 px. Letra grande y cómoda para leer */
+  line-height: 1.6;                   /* espacio entre renglones: 1.6 veces el tamaño de la letra */
+}
+
+
+/* ----------------------------------------------------------------
+   3. TÍTULOS
+   ---------------------------------------------------------------- */
+h1, h2, h3 {                          /* la coma aplica la misma regla a los tres */
+  color: var(--color-principal);
+  line-height: 1.25;                  /* los títulos se ven mejor con renglones más juntos */
+}
+
+h1 { font-size: 2.75rem; margin: 0; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; margin-top: 0; }
+
+
+/* ----------------------------------------------------------------
+   4. ENCABEZADO
+   ---------------------------------------------------------------- */
+header {
+  background-color: var(--color-principal);
+  padding: 2rem 1.5rem;               /* relleno interno: 2rem arriba/abajo, 1.5rem a los lados */
+  text-align: center;
+}
+
+/* "header h1" = los h1 que están DENTRO del header */
+header h1 {
+  color: #FFFFFF;
+}
+
+header p {
+  color: #FFFFFF;
+  margin: 0.5rem 0 0;
+  font-size: 1.35rem;
+}
+
+
+/* ----------------------------------------------------------------
+   4b. MENÚ PRINCIPAL (PASO 3)
+   ---------------------------------------------------------------- */
+.menu {
+  list-style: none;                   /* quita las viñetas (los puntitos) de la lista */
+  padding: 0;
+  margin: 1.5rem 0 0;
+
+  /* FLEXBOX en fila: pone los enlaces uno junto al otro */
+  display: flex;
+  flex-wrap: wrap;                    /* si no caben (celular), bajan al siguiente renglón */
+  justify-content: center;            /* centrados */
+  gap: 0.5rem;
+}
+
+.menu a {
+  display: inline-flex;
+  align-items: center;                /* centra el texto verticalmente */
+  min-height: 48px;                   /* área cómoda para el dedo */
+  padding: 0 1.25rem;
+  color: #FFFFFF;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid transparent;      /* borde invisible; se "enciende" en la página actual */
+  border-radius: 999px;
+}
+
+.menu a:hover {
+  background-color: rgba(255, 255, 255, 0.15);   /* blanco al 15 %: un brillo sutil */
+}
+
+/* [aria-current="page"] = "el enlace que tenga ese atributo".
+   Así la persona siempre sabe en qué sección está. */
+.menu a[aria-current="page"] {
+  border-color: #FFFFFF;
+}
+
+/* Dentro del encabezado verde, el contorno del teclado debe ser blanco para verse */
+header a:focus-visible {
+  outline-color: #FFFFFF;
+}
+
+
+/* ----------------------------------------------------------------
+   5. CONTENIDO PRINCIPAL
+   ---------------------------------------------------------------- */
+main {
+  max-width: 60rem;                   /* no deja que los renglones sean larguísimos en pantallas grandes */
+  margin: 0 auto;                     /* "auto" a los lados = centrado */
+  padding: 1.5rem;
+}
+
+
+/* ----------------------------------------------------------------
+   6. TARJETAS
+   ---------------------------------------------------------------- */
+
+/* PASO 3: la caja que agrupa las tarjetas usa GRID (cuadrícula).
+   El punto antes del nombre (.tarjetas) significa "los elementos con class='tarjetas'". */
+.tarjetas {
+  display: grid;
+  /* "Haz tantas columnas como quepan, cada una de MÍNIMO 16rem de ancho."
+     - En computadora caben 3 → tres columnas.
+     - En celular solo cabe 1 → una columna.
+     ¡Se adapta sola, sin tener que escribir reglas para cada pantalla! */
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;                        /* espacio entre tarjetas */
+}
+
+article {
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);   /* grosor, tipo de línea y color */
+  border-radius: var(--radio);
+  padding: 1.5rem;
+
+  /* PASO 3: FLEXBOX acomoda lo de adentro en fila o en columna.
+     Aquí: en columna (título, texto, botón, uno debajo de otro). */
+  display: flex;
+  flex-direction: column;
+}
+
+/* El párrafo "crece" para ocupar el espacio sobrante.
+   Así los botones de las 3 tarjetas quedan alineados abajo, aunque los textos midan distinto. */
+article p {
+  flex-grow: 1;
+  margin-top: 0;                      /* dentro de flexbox los márgenes se SUMAN (no se juntan),
+                                         así que quitamos el de arriba para no dejar un hueco grande */
+}
+
+article h3 {
+  margin-bottom: 0.75rem;
+}
+
+/* El botón no se estira a todo el ancho de la tarjeta */
+article a {
+  align-self: flex-start;
+}
+
+
+/* ----------------------------------------------------------------
+   7. ENLACES CON FORMA DE BOTÓN (dentro de las tarjetas)
+   ---------------------------------------------------------------- */
+article a {
+  display: inline-block;              /* permite darle relleno como a una caja */
+  background-color: var(--color-acento);
+  color: #FFFFFF;
+  font-weight: 700;                   /* negritas */
+  text-decoration: none;              /* quita el subrayado */
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;               /* un número muy grande = forma de píldora */
+  min-height: 48px;                   /* tamaño mínimo cómodo para el dedo */
+  box-sizing: border-box;
+}
+
+/* :hover = cuando el mouse pasa por encima */
+article a:hover {
+  background-color: #8A3D20;          /* un terracota un poco más oscuro */
+}
+
+/* :focus-visible = cuando se llega con el teclado (tecla Tab). Importante para accesibilidad. */
+a:focus-visible {
+  outline: 3px solid var(--color-principal);
+  outline-offset: 3px;
+}
+
+
+/* ----------------------------------------------------------------
+   8. PIE DE PÁGINA
+   ---------------------------------------------------------------- */
+footer {
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: 1rem;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid var(--color-borde);
+}
+
+/* PASO 3: menú del pie. Misma idea que el de arriba, pero más discreto. */
+.menu-pie {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;                 /* 0.5rem entre renglones, 1.5rem entre enlaces */
+}
+
+.menu-pie a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  color: var(--color-principal);
+  font-weight: 700;
+  font-size: 1.1rem;
+  /* aquí SÍ dejamos el subrayado: ayuda a reconocer que es un enlace */
+}
+
+
+/* ----------------------------------------------------------------
+   9. AJUSTES PARA PANTALLAS PEQUEÑAS (celular) — PASO 3
+   ----------------------------------------------------------------
+   @media es una PREGUNTA: "¿la pantalla mide 600px o menos?"
+   Si la respuesta es sí, se aplican estas reglas (y le ganan a las de arriba).
+*/
+@media (max-width: 600px) {
+  h1 { font-size: 2.1rem; }           /* título algo más chico para que no se parta feo */
+  h2 { font-size: 1.6rem; }
+
+  header {
+    padding: 1.5rem 1rem;
+  }
+
+  main {
+    padding: 1rem;                    /* un poco menos de margen para aprovechar la pantalla */
+  }
+}

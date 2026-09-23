@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+  ¡Hola! Esto es un COMENTARIO. Todo lo que está entre <!- - y - -> el navegador lo ignora.
+  Sirve para dejarnos notas a nosotras mismas.
+
+  Este archivo es la página de INICIO de Tertulia Digital.
+  Está escrito en HTML, el lenguaje que le dice al navegador QUÉ hay en la página
+  (títulos, párrafos, botones…). Cómo se VE (colores, tamaños) lo haremos en el Paso 2 con CSS.
+-->
+
+<!-- La etiqueta <html> envuelve TODA la página. lang="es-MX" avisa que está en español de México
+     (ayuda a los lectores de pantalla y a Google). -->
+<html lang="es-MX">
+
+<!-- ============ <head>: la "cabeza" ============
+     Lo de aquí NO se ve dentro de la página; es información PARA el navegador. -->
+<head>
+  <!-- Permite acentos y la ñ sin que salgan símbolos raros -->
+  <meta charset="UTF-8">
+
+  <!-- Hace que la página se adapte bien al celular -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- El texto que aparece en la pestaña del navegador -->
+  <title>Tertulia Digital · Mente activa, vida plena</title>
+
+  <!-- Una descripción corta que Google muestra en los resultados de búsqueda -->
+  <meta name="description" content="Retos para la mente, consejos de bienestar y apoyo para cuidadores. Un espacio pensado para adultos mayores.">
+
+  <!-- PASO 2: traemos la tipografía "Atkinson Hyperlegible" desde Google Fonts (gratis).
+       Es una letra diseñada para personas con baja visión. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- PASO 2: conectamos NUESTRO archivo de estilos. Sin esta línea, el CSS no se aplica. -->
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<!-- ============ <body>: el "cuerpo" ============
+     TODO lo que se ve en la pantalla va aquí adentro. -->
+<body>
+
+  <!-- <header> = encabezado. Normalmente lleva el nombre del sitio. -->
+  <header>
+    <!-- <h1> es el título más importante. Solo debe haber UNO por página. -->
+    <h1>Tertulia Digital</h1>
+    <!-- <p> = párrafo -->
+    <p>Mente activa, vida plena.</p>
+
+    <!-- PASO 3: el MENÚ de navegación.
+         <nav> avisa (sobre todo a los lectores de pantalla) que esto es un menú.
+         aria-label le pone nombre: "Menú principal". -->
+    <nav aria-label="Menú principal">
+      <!-- class="menu" es una ETIQUETA PROPIA que inventamos para poder darle estilo
+           en el CSS con .menu (el punto significa "clase"). -->
+      <!-- <ul> = lista. Cada <li> es un elemento de la lista. Un menú es, en el fondo, una lista de enlaces. -->
+      <ul class="menu">
+        <!-- aria-current="page" marca en qué página estamos. Lo usamos para resaltarla. -->
+        <li><a href="index.html" aria-current="page">Inicio</a></li>
+        <li><a href="retos/">Retos</a></li>
+        <li><a href="bienestar/">Bienestar</a></li>
+        <li><a href="cuidadores.html">Cuidadores</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- <main> = el contenido principal de la página -->
+  <main>
+
+    <!-- <section> agrupa contenido que va junto. Esta es la bienvenida. -->
+    <section>
+      <center>
+        Este es un espacio para ejercitar la memoria, aprender algo nuevo cada día
+        y cuidar el cuerpo con calma. Aquí no hay prisa: vaya a su ritmo.
+      </center>
+    </section>
+
+    <!-- Esta sección contiene las tres "tarjetas" que llevan a cada parte del sitio -->
+    <section>
+      <h2>¿Qué le gustaría hacer hoy?</h2>
+
+      <!-- PASO 3: <div> es una "caja" sin significado propio; sirve para AGRUPAR.
+           Aquí agrupa las 3 tarjetas para acomodarlas en columnas con la clase "tarjetas". -->
+      <div class="tarjetas">
+
+      <!-- <article> = un bloque de contenido que tiene sentido por sí solo (como una tarjeta) -->
+      <article><center>
+        <!-- <h3> = subtítulo de tercer nivel -->
+        <h3><center>Retos para la mente</center></h3>
+        <p>Sopas de letras, crucigramas, rompecabezas y juegos de memoria.</p>
+        <!-- <a> = un ENLACE (link). href dice a dónde lleva al hacer clic.
+             Nota: estas páginas todavía no existen; las crearemos más adelante. -->
+        <center><a href="retos/">Empezar un reto</a></center>
+      </center></article>
+
+      <article><center>
+        <h3><center>Bienestar</center></h3>
+        <p>Alimentación saludable, plantas medicinales y ejercicios todos los días.</p>
+        <center><a href="bienestar/">Ver consejos</a></center>
+      </center></article>
+
+      <article><center>
+        <h3><center>Familiares y cuidadores</center></h3>
+        <p>Recursos de apoyo y orientación para cuidadores.</p>
+        <center><a href="cuidadores.html">Ir a la sección</a></center>
+      </center></article>
+
+      </div> <!-- aquí se cierra la caja "tarjetas" -->
+    </section>
+
+  </main>
+
+  <!-- <footer> = pie de página. Va al final. -->
+  <footer>
+    <!-- PASO 3: repetimos los enlaces abajo, así nadie tiene que regresar hasta arriba. -->
+    <nav aria-label="Menú del pie de página">
+      <ul class="menu-pie">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="retos/">Retos</a></li>
+        <li><a href="bienestar/">Bienestar</a></li>
+        <li><a href="cuidadores.html">Cuidadores</a></li>
+      </ul>
+    </nav>
+    <!-- &copy; es un código especial que muestra el símbolo © -->
+    <p>&copy; 2026 Tertulia Digital. La información de salud es orientativa; consulte siempre a su médico.</p>
+  </footer>
+
+</body>
+</html>
